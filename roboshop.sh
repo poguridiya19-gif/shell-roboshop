@@ -1,7 +1,7 @@
 #!/bin/bash
 
 AMI_ID="ami-09c813fb71547fc4f"
-SG_ID="sg-06a9a911c558d1529" # replace with your SG ID
+SG_ID="sg-0ce1ee944fa3e0308" # replace with your SG ID
 ZONE_ID="Z09362922S2ZXJ8DP3JCV" # replace with your id
 DOMAIN_NAME="poguri.fun"
 
