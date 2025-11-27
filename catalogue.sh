@@ -21,10 +21,10 @@ if [ $USERID -ne 0 ]; then
 f1
 VALIDATE(){
     if [ $1 -ne 0 ]; then
-       echo -e "$R ERROR:Installing $2 is failure $N"
+       echo -e "$G ERROR:Installing $2 is failure $N"
        exit 1
     else 
-       echo -e "$R Installing $2 is success $N"
+       echo -e "$G  Installing $2 is success $N"
 fi
 }
 
