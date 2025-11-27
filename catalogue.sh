@@ -1,4 +1,4 @@
-#! bin bash
+#!/bin/bash
 
 USERID=$(id -u)
 R="\e[31m"
@@ -6,11 +6,11 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-LOGS_FOLDER="var/log/shell-roboshop"
+LOGS_FOLDER=var/log/shell-roboshop
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
-SCRIPT_DIR=$pwd
+SCRIPT_DIR=$(pwd)
 MONGODB_HOST=mongodb.poguri.fun
-LOG_FILE="$LOG_FOLDER/$SCRIPT_NAME.log" #var/log/shell-script/16.logs.log
+LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log" #var/log/shell-script/16.logs.log
 
 mkdir -p $LOGS_FOLDER
 echo "script started executed at :$(date)" | tee -a $LOG_FILE
@@ -18,7 +18,7 @@ echo "script started executed at :$(date)" | tee -a $LOG_FILE
 if [ $USERID -ne 0 ]; then
    echo "ERROR:: please run these script with root privelege"
    exit 1
-
+f1
 VALIDATE(){
     if [ $1 -ne 0 ]; then
        echo -e "$R ERROR:Installing $2 is failure $N"
@@ -53,7 +53,7 @@ VALIDATE $? "downloading catalogue application"
 cd /app 
 VALIDATE $? "changing  to app directory"
 
-rm -rf /app*
+rm -rf /app/*
 VALIDATE $? "removing existing code"
 
 unzip /tmp/catalogue.zip &>>$LOG_FILE
