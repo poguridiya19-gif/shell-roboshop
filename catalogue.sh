@@ -6,7 +6,7 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-LOGS_FOLDER=var/log/shell-roboshop
+LOGS_FOLDER="var/log/shell-roboshop"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 SCRIPT_DIR=$(pwd)
 MONGODB_HOST=mongodb.poguri.fun
@@ -18,14 +18,14 @@ echo "script started executed at :$(date)" | tee -a $LOG_FILE
 if [ $USERID -ne 0 ]; then
    echo "ERROR:: please run these script with root privelege"
    exit 1
-f1
-VALIDATE(){
-    if [ $1 -ne 0 ]; then
-       echo -e "$G ERROR:Installing $2 is failure $N"
-       exit 1
-    else 
-       echo -e "$G  Installing $2 is success $N"
 fi
+VALIDATE(){
+   if [ $1 -ne 0 ]; then
+      echo -e "$R ERROR:Installing $2 is failure $N"
+      exit 1
+   else 
+      echo -e "$G  Installing $2 is success $N"
+   fi
 }
 
 #### NodeJs ####
@@ -36,7 +36,7 @@ dnf module enable nodejs:20 -y &>>$LOG_FILE
 VALIDATE $? "Enabling node js"
 
 dnf install nodejs -y &>>$LOG_FILE
-VALIDATE $? "INSTALLING nodejs"
+VALIDATE $? "Installing nodejs"
 
 id roboshop &>>$LOG_FILE
 if [ $? -ne 0 ]; then
@@ -46,14 +46,14 @@ else
    echo -e "user already exist ... $Y SKIPPING $N"
 fi
 
-mkdir -p /app
+mkdir -p /app &>>$LOG_FILE
 VALIDATE $? "creating app directory"
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$LOG_FILE
 VALIDATE $? "downloading catalogue application"
-cd /app 
+cd /app &>>$LOG_FILE
 VALIDATE $? "changing  to app directory"
 
-rm -rf /app/*
+rm -rf /app/* &>>$LOG_FILE
 VALIDATE $? "removing existing code"
 
 unzip /tmp/catalogue.zip &>>$LOG_FILE
@@ -62,14 +62,14 @@ VALIDATE $? "unzip catalogue"
 npm install &>>$LOG_FILE
 VALIDATE $? "install dependencies"
 
-cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
+cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service &>>$LOG_FILE
 VALIDATE $? "copy systemctl service"
 
-systemctl daemon-reload
+systemctl daemon-reload &>>$LOG_FILE
 systemctl enable catalogue &>>$LOG_FILE
 VALIDATE $? "enable catalogue" 
 
-cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo
+cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
 VALIDATE $? "copy mongo repo"
 
 dnf install mongodb-mongosh -y &>>$LOG_FILE
@@ -83,7 +83,6 @@ else
    echo -e "Catalogue products already exist ... $Y SKIPPING $N"
 fi
 
-systemctl restart catalogue
+systemctl restart catalogue &>>$LOG_FILE
 VALIDATE $? "restarted catalogue"
 
-fi

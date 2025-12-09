@@ -26,9 +26,7 @@ if [ $USERID -ne 0 ]; then
 #### NodeJs ####
 dnf module disable nodejs -y &>>$LOG_FILE
 
-
 dnf module enable nodejs:20 -y &>>$LOG_FILE
-
 
 dnf install nodejs -y &>>$LOG_FILE
 
@@ -47,25 +45,19 @@ curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue
 
 cd /app 
 
-
 rm -rf /app*
-
 
 unzip /tmp/catalogue.zip &>>$LOG_FILE
 
-
 npm install &>>$LOG_FILE
-
 
 cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
 
 systemctl daemon_reload
 systemctl enable catalogue &>>$LOG_FILE
-
+echo -e "Catalogue application setup ... $G SUCCESS $N"
 
 cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo
-
-
 dnf install mongodb-mongosh -y &>>$LOG_FILE
 
 
@@ -78,4 +70,4 @@ else
 fi
 
 systemctl restart catalogue
-
+echo -e "loading products and restarting catalogue ... $G SUCCESS $N"
