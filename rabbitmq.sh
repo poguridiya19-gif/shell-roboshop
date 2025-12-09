@@ -21,7 +21,7 @@ fi
 
 VALIDATE(){ # function input through args like shell scirpt args
     if [ $1 -ne 0 ]; then
-      echo -e "ERROR:: $G installing $2 is failure $N" | tee -a $LOG_FILE
+      echo -e " $R ERROR:: installing $2 is failure $N" | tee -a $LOG_FILE
       exit 1
     else
       echo -e " $G installing $2 is success $N" | tee -a $LOG_FILE
