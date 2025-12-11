@@ -34,7 +34,7 @@ dnf install maven -y &>>$LOG_FILE
 VALIDATE $? "Installing maven"
 
 id roboshop &>>$LOG_FILE
-if [$?-ne 0]; then
+if [$? -ne 0]; then
    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
    VALIDATE $? "Creating System User"
 else
@@ -47,7 +47,7 @@ VALIDATE $? "creating app directory"
 curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip &>>$LOG_FILE
 VALIDATE $? "Downloading shipping application"
 
-cd /app &>>$LOG_FILE
+cd /app
 VALIDATE $? "Changing app directory"
 
 rm -rf/app/*  
@@ -62,7 +62,7 @@ VALIDATE $? "Building Maven Project"
 mv target/shipping-1.0.jar shipping.jar &>>$LOG_FILE
 VALIDATE $? "Renaming Jar File"
 
-cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service &>>$LOG_FILE
+cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service 
 VALIDATE $? "copy systemctl service"
 
 systemctl daemon-reload &>>$LOG_FILE

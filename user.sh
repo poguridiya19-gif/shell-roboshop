@@ -50,7 +50,7 @@ mkdir -p /app &>>$LOG_FILE
 VALIDATE $? "creating app directory"
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip &>>$LOG_FILE
 VALIDATE $? "downloading user application"
-cd /app &>>$LOG_FILE
+cd /app 
 VALIDATE $? "changing  to app directory"
 
 rm -rf /app/* 
@@ -62,13 +62,13 @@ VALIDATE $? "unzip user"
 npm install &>>$LOG_FILE
 VALIDATE $? "install dependencies"
 
-cp $SCRIPT_DIR/user.service /etc/systemd/system/user.service &>>$LOG_FILE
+cp $SCRIPT_DIR/user.service /etc/systemd/system/user.service 
 VALIDATE $? "copy systemctl service"
 
 systemctl daemon-reload &>>$LOG_FILE
 systemctl enable user &>>$LOG_FILE
 VALIDATE $? "enable user" 
 
-systemctl restart user &>>$LOG_FILE
+systemctl restart user 
 VALIDATE $? "restarted user"
 

@@ -45,13 +45,13 @@ VALIDATE $? "cleaning nginx html directory"
 curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>>$LOG_FILE
 VALIDATE $? "downloading frontend applications"
 
-cd /usr/share/nginx/html &>>$LOG_FILE
+cd /usr/share/nginx/html
 VALIDATE $? "changing directory to nginx html root"
 
 unzip /tmp/frontend.zip &>>$LOG_FILE
 VALIDATE $? "unzip frontend"
 
-cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf &>>$LOG_FILE
+cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf 
 VALIDATE $? "copying nginx.conf"
 
 systemctl restart nginx 

@@ -46,7 +46,7 @@ VALIDATE $? "creating app directory"
 curl -L -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment-v3.zip >>$LOG_FILE
 VALIDATE $? "downloading payment applications"&
 
-cd /app  &>>$LOG_FILE
+cd /app  
 VALIDATE $? "changing to app directory"
 
 rm -rf /app/*
@@ -58,7 +58,7 @@ VALIDATE $? "unzip payment"
 pip3 install -r requirements.txt &>>$LOG_FILE
 VALIDATE $? "installing phthon requirements"
 
-cp $SCRIPT_DIR/payment.service /etc/systemd/system/payment.service &>>$LOG_FILE
+cp $SCRIPT_DIR/payment.service /etc/systemd/system/payment.service 
 VALIDATE $? "copy systemctl service"
 
 systemctl daemon-reload &>>$LOG_FILE
