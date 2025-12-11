@@ -14,7 +14,7 @@ START_TIME=$(date +%s)
 mkdir -p $LOGS_FOLDER
 echo "script started executed at: $(date)" | tee -a $LOG_FILE
 
-if [ USERID -ne 0 ]; then
+if [ $USERID -ne 0 ]; then
   echo "ERROR:: please run these script with root privelege"
   exit 1 # failure other than zero
 fi
