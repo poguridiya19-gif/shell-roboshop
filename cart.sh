@@ -54,7 +54,7 @@ VALIDATE $? "Downloading Cart Application"
 cd /app &>>$LOG_FILE
 VALIDATE $? "Changing App Directory"
 
-rm -rf /app/* &>>$LOG_FILE
+rm -rf /app/* 
 VALIDATE $? "Removing  Existing Code"
 
 unzip /tmp/cart.zip &>>$LOG_FILE

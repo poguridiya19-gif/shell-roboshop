@@ -49,7 +49,7 @@ VALIDATE $? "downloading payment applications"&
 cd /app  &>>$LOG_FILE
 VALIDATE $? "changing to app directory"
 
-rm -rf /app/* &>>$LOG_FILE
+rm -rf /app/*
 VALIDATE $? "removing the existing code"
 
 unzip /tmp/payment.zip &>>$LOG_FILE

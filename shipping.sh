@@ -50,7 +50,7 @@ VALIDATE $? "Downloading shipping application"
 cd /app &>>$LOG_FILE
 VALIDATE $? "Changing app directory"
 
-rm -rf/app/*  &>>$LOG_FILE
+rm -rf/app/*  
 VALIDATE $? "Removing exist code"
 
 unzip /tmp/shipping.zip  &>>$LOG_FILE
