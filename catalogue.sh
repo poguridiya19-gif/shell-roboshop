@@ -8,7 +8,7 @@ N="\e[0m"
 
 LOGS_FOLDER="var/log/shell-roboshop"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
-SCRIPT_DIR=$(pwd)
+SCRIPT_DIR=$PWD
 MONGODB_HOST=mongodb.poguri.fun
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log" #var/log/shell-script/16.logs.log
 
@@ -65,7 +65,7 @@ VALIDATE $? "install dependencies"
 cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service 
 VALIDATE $? "copy systemctl service"
 
-systemctl daemon-reload &>>$LOG_FILE
+systemctl daemon-reload 
 systemctl enable catalogue &>>$LOG_FILE
 VALIDATE $? "enable catalogue" 
 
@@ -83,6 +83,6 @@ else
    echo -e "Catalogue products already exist ... $Y SKIPPING $N"
 fi
 
-systemctl restart catalogue &>>$LOG_FILE
+systemctl restart catalogue 
 VALIDATE $? "restarted catalogue"
 
