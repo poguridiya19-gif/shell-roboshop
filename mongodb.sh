@@ -28,7 +28,7 @@ VALIDATE(){ # functions recieve input through args just like shell script args
     fi
 }
 
-cp mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
+cp mongo.repo /etc/yum.repos.d/mongo.repo 
 VALIDATE $? "Adding Mongo Repo"
 
 dnf install mongodb-org -y &>>$LOG_FILE
@@ -37,5 +37,11 @@ VALIDATE $? "Install mongodb"
 systemctl enable mongod &>>$LOG_FILE
 VALIDATE $? "Enable MongoDB"
 
-systemctl start mongod &>>$LOG_FILE
+systemctl start mongod 
 VALIDATE $? "Start MongoDB"
+
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
+VALIDATE $? "Allowing remote connections to MongoDB"
+
+systemctl restart mongod
+VALIDATE $? "Restarted MongoDB"
